@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 /* eslint-disable @next/next/no-img-element */
 import { IKImage, IKUpload, ImageKitProvider } from "imagekitio-next";
 import { useState } from "react";
@@ -32,6 +33,7 @@ export default function Home() {
 
   return (
     <div className="">
+      <Button variant={"destructive"}>Click Me</Button>
       <ImageKitProvider
         publicKey={publicKey}
         urlEndpoint={urlEndpoint}
