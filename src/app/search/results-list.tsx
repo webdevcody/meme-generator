@@ -6,7 +6,6 @@ import { urlEndpoint } from "../providers";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
