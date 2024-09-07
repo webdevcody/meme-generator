@@ -7,8 +7,10 @@ import { Slider } from "@/components/ui/slider";
 import { Card } from "@/components/ui/card";
 
 export function TextOverlay({
+  index,
   onUpdate,
 }: {
+  index: number;
   onUpdate: (text: string, x: number, y: number) => void;
 }) {
   const [textOverlay, setTextOverlay] = useState("");
@@ -21,9 +23,9 @@ export function TextOverlay({
   return (
     <Card className="p-4 space-y-4">
       <div>
-        <Label htmlFor="textOverlay1">Text Overlay 1</Label>
+        <Label htmlFor={`textOverlay${index}`}>Text Overlay {index}</Label>
         <Input
-          id="textOverlay1"
+          id={`textOverlay${index}`}
           onChange={(e) => {
             setTextOverlay(e.target.value);
             onUpdate(e.target.value, xPositionDecimal, yPositionDecimal);
@@ -32,9 +34,9 @@ export function TextOverlay({
         />
       </div>
       <div>
-        <Label htmlFor="text1XPosition">Text 1 X Position</Label>
+        <Label htmlFor={`text${index}XPosition`}>Text {index} X Position</Label>
         <Slider
-          id="text1XPosition"
+          id={`text${index}XPosition`}
           value={[textOverlayXPosition]}
           onValueChange={([v]) => {
             setTextOverlayXPosition(v);
@@ -43,9 +45,9 @@ export function TextOverlay({
         />
       </div>
       <div>
-        <Label htmlFor="text1YPosition">Text 1 Y Position</Label>
+        <Label htmlFor={`text${index}YPosition`}>Text {index} Y Position</Label>
         <Slider
-          id="text1YPosition"
+          id={`text${index}YPosition`}
           value={[textOverlayYPosition]}
           onValueChange={([v]) => {
             setTextOverlayYPosition(v);
