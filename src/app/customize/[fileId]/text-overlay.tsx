@@ -21,7 +21,7 @@ export function TextOverlay({
     bgColor?: string
   ) => void;
 }) {
-  const [textOverlay, setTextOverlay] = useState("HELLO WORLD");
+  const [textOverlay, setTextOverlay] = useState("");
   const [textOverlayXPosition, setTextOverlayXPosition] = useState(0);
   const [textOverlayYPosition, setTextOverlayYPosition] = useState(0);
   const [applyTextBackground, setApplyTextBackground] = useState(false);
@@ -34,7 +34,13 @@ export function TextOverlay({
     : undefined;
 
   useEffect(() => {
-    onUpdate(index, textOverlay, xPositionDecimal, yPositionDecimal, bgColor);
+    onUpdate(
+      index,
+      textOverlay || " ",
+      xPositionDecimal,
+      yPositionDecimal,
+      bgColor
+    );
   }, [
     index,
     textOverlay,
