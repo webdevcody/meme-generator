@@ -3,8 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
@@ -13,6 +11,7 @@ import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SearchInput } from "./search-input";
+import { auth, signIn, signOut } from "@/auth";
 
 export function Header() {
   return (
@@ -72,23 +71,49 @@ export function Header() {
           </div>
         </form>
         <ModeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary" size="icon" className="rounded-full">
-              <CircleUser className="h-5 w-5" />
-              <span className="sr-only">Toggle user menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+
+        <AccountMenu />
       </div>
     </header>
+  );
+}
+
+async function AccountMenu() {
+  const session = await auth();
+
+  if (!session) {
+    return (
+      <form
+        action={async () => {
+          "use server";
+          await signIn();
+        }}
+      >
+        <Button type="submit">Sign in</Button>
+      </form>
+    );
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="icon" className="rounded-full">
+          <CircleUser className="h-5 w-5" />
+          <span className="sr-only">Toggle user menu</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button type="submit">Sign out</button>
+          </form>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
