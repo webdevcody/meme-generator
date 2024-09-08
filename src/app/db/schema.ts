@@ -5,6 +5,7 @@ import {
   text,
   primaryKey,
   integer,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
@@ -95,5 +96,19 @@ export const favorites = pgTable("favorite", {
   memeId: text("memeId").notNull(),
   filePath: text("filePath").notNull(),
 });
+
+export const favoriteCounts = pgTable(
+  "favorite_count",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    memeId: text("memeId").notNull(),
+    count: integer("count").notNull().default(0),
+  },
+  (table) => ({
+    memeIdUniqueIndex: uniqueIndex("memeIdUniqueIndex").on(table.memeId),
+  })
+);
 
 export type Favorite = typeof favorites.$inferSelect;
