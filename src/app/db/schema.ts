@@ -84,3 +84,10 @@ export const authenticators = pgTable(
     }),
   })
 );
+
+export const favorites = pgTable("favorite", {
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  memeId: text("memeId").notNull(),
+});
