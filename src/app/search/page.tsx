@@ -12,7 +12,7 @@ export default async function SearchPage({
   unstable_noStore();
 
   const files = await imagekit.listFiles({
-    searchQuery: `"customMetadata.displayName": "${searchParams.q}"`,
+    tags: searchParams.q,
   });
 
   const favoriteCounts = await getFavoriteCounts(

@@ -2,7 +2,6 @@
 
 import { FileObject } from "imagekit/dist/libs/interfaces";
 import { IKImage } from "imagekitio-next";
-import { urlEndpoint } from "../providers";
 import {
   Card,
   CardContent,
@@ -41,7 +40,6 @@ export function ResultsList({
             <IKImage
               key={file.fileId}
               path={file.filePath}
-              urlEndpoint={urlEndpoint}
               alt={file.name}
               width={300}
               height={300}
